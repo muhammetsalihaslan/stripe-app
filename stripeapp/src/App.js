@@ -1,19 +1,19 @@
-import {  Routes, Route } from 'react-router-dom';
+import {BrowserRouter,  Routes, Route } from 'react-router-dom';
 import Pay from './pages/Pay';
 import Success from './pages/Success';
 
 
 function App() {
   return (
+  <BrowserRouter>
+  
   <Routes>
-    <Route>
-      <Pay path="/pay"/>
-    </Route>
-    <Route>
-      <Success path="/success"/>
-    </Route>
+    <Route path="/pay" element={<Pay/>}/>
+    <Route path="/success" element={<Success/>}/>
   </Routes>
-  )
-}
+  
+  </BrowserRouter>
+  );
+};
 
 export default App;

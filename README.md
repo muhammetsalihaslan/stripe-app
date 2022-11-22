@@ -3,8 +3,13 @@
 # what am i using
 Yarn
 React-router-dom
-Switch
 Stripe
+
+# code 
+
+yarn add react-router-dom(dom)
+yarn add react-stripe-checkout(stripe)
+
 
 
 
