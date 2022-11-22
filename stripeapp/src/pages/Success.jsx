@@ -17,7 +17,7 @@ const Success = () => {
         backgroundColor:"teal",
         color:"white",
         fontWeight:"600",
-        cursor:"pointer",}}>
+         }}>
         Success
       </button>
       <p>Your  payment succesfully get</p>
