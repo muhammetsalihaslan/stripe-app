@@ -4,6 +4,7 @@
 Yarn
 React-router-dom
 Stripe
+useState/ useEffect/ useNavigate
 
 # code 
 

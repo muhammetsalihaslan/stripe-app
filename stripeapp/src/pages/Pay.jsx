@@ -2,18 +2,20 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import { useState, useEffect} from "react";
 import axios from 'axios';
+import {useNavigate} from "react-router-dom"
 
 const KEY="pk_test_51M6VOIFA7dkRFKIh1GlDB23gq0Iqr1JoU0i1WXX9SBYfOpoMphw9lbA5ZonaUty0dPzT9RdbWGSWWgh8mBspe43r00P8Dw46Ny"
 
 const Pay = () => {
   const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
 
   const onToken = (token) =>{
     setStripeToken(token);
   };
 
   useEffect(() => {
-    const makeRequest = async() =>{
+    const makeRequest = async () =>{
       try {
         const res = await axios.post("http://localhost:5000/api/checkout/payment",
         {
@@ -21,13 +23,14 @@ const Pay = () => {
           amount:2000,
         }
         );
-        console.log(res.data)
+        console.log(res.data);
+        navigate("/success");
       } catch (err) {
           console.log(err);
       } 
     };
-    stripeToken && makeRequest
-  }, [stripeToken]);
+    stripeToken && makeRequest();
+  }, [stripeToken, navigate]);
 
   
   return (
@@ -37,17 +40,20 @@ const Pay = () => {
         alignItems: 'center',
         justifyContent: 'center',
     }}>
-    
-    <StripeCheckout 
-    name="BrandWay" 
-    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmgqlhktt8BAz_Hszp_KZ5xq8rpf-jYItw9Q&usqp=CAU"
-    billingAddress
-    shippingAddress
-    description="Your total is $20"
-    amount={2000}
-    token={onToken}
-    stripeKey={KEY}
-    >
+    {stripeToken ? (<span>Processing. Please wait</span>) : (
+
+
+
+      <StripeCheckout 
+      name="BrandWay" 
+      image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmgqlhktt8BAz_Hszp_KZ5xq8rpf-jYItw9Q&usqp=CAU"
+      billingAddress
+      shippingAddress
+      description="Your total is $20"
+      amount={2000}
+      token={onToken}
+      stripeKey={KEY}
+      >
 
     <button
       style={{
@@ -64,6 +70,7 @@ const Pay = () => {
     </button>
 
     </StripeCheckout>
+    )}
         
     </div>
   )
